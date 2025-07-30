@@ -1,1 +1,51 @@
-site_name: My Docs
+site_name: Xilinx-FPGA-Tutorials
+
+plugins:
+  - search
+  - awesome-pages
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: light blue
+      media: "(prefers-color-scheme: dark)"
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - Vivado Installation Guide: Vivado-Installation-Guide/README.md
+  - Vivado Tutorial:
+    - Overview: Vivado-Tutorial/README.md
+    - Part 1 Vivado Basic Tutorial: Vivado-Tutorial/Part1-Vivado-Basic-Tutorial/README.md
+    - Part 2 RTL Design and Simulation: Vivado-Tutorial/Part2-RTL-Design-and-Simulation/README.md
+    - Extra 1 Linter: Vivado-Tutorial/Extra1-Linter/README.md
+    - Part 3 FPGA Design Flow: Vivado-Tutorial/Part3-FPGA-Design-Flow/README.md
+    - Extra 2 Synthesis and Implementation Strategies: Vivado-Tutorial/Extra2-Synthesis-and-Implementation-Strategies/README.md
+    - Extra 3 Constraint: Vivado-Tutorial/Extra3-Constraint/README.md
+    - Part 4 IP Package and Block Design: Vivado-Tutorial/Part4-IP-Package-and-Block-Design/README.md
+    - Extra 4 Debugger: Vivado-Tutorial/Extra4-Debugger/README.md
+  - Hardware Software Codesign: 
+    - Overview: Hardware-Software-Codesign/README.md
+    - Part 1 Zynq Processor: Hardware-Software-Codesign/Part1-Zynq-Processor/README.md
+    - Part 2 AXI GPIO: Hardware-Software-Codesign/Part2-AXI-GPIO/README.md
+    - Extra 1 Vitis Change xsa and Update Bitstream: Hardware-Software-Codesign/Extra1-Vitis-Change-xsa-and-Update-Bitstream/README.md
+    - Part 3 AXI-Lite: Hardware-Software-Codesign/Part3-AXI-Lite/README.md
+    - Extra 2 AXI Mapping: Hardware-Software-Codesign/Extra2-AXI-Mapping/README.md
+    - Extra 3 AXI Protocol: Hardware-Software-Codesign/Extra3-AXI-Protocol/README.md
+    - Part 4 BRAM: Hardware-Software-Codesign/Part4-BRAM/README.md
+    - Part 5 DSP: Hardware-Software-Codesign/Part5-DSP/README.md
+    - Part 6 PYNQ Jupyter Notebook: Hardware-Software-Codesign/Part6-PYNQ-Jupyter-Notebook/README.md
+    - Extra 4 ILA with PYNQ: Hardware-Software-Codesign/Extra4-ILA-with-PYNQ/README.md
+    - Part 7 DMA: Hardware-Software-Codesign/Part7-DMA/README.md
+    - Part 8 CDMA: Hardware-Software-Codesign/Part8-CDMA/README.md
+    - Part 9 HDMI: Hardware-Software-Codesign/Part9-HDMI/README.md
