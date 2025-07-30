@@ -39,6 +39,15 @@ nav:
     - Extra 4 Debugger: Vivado-Tutorial/Extra4-Debugger/README.md
   - Hardware Software Codesign: 
     - Overview: Hardware-Software-Codesign/README.md
+    - Lab: 
+      - Overview: Hardware-Software-Codesign/Lab/README.md
+      - Lab 1 UART: Hardware-Software-Codesign/Lab/Lab1-UART/README.md
+      - Lab 2 AXI GPIO: Hardware-Software-Codesign/Lab/Lab2-AXI-GPIO/README.md
+      - Lab 3 AXI-Lite: Hardware-Software-Codesign/Lab/Lab3-AXI-Lite/README.md
+      - Lab 4 BRAM: Hardware-Software-Codesign/Lab/Lab4-BRAM/README.md
+      - Lab 5 DSP: Hardware-Software-Codesign/Lab/Lab5-DSP/README.md
+      - Lab 6 DMA: Hardware-Software-Codesign/Lab/Lab6-DMA/README.md
+      - Lab 7 CDMA: Hardware-Software-Codesign/Lab/Lab7-CDMA/README.md
     - Part 1 Zynq Processor: Hardware-Software-Codesign/Part1-Zynq-Processor/README.md
     - Part 2 AXI GPIO: Hardware-Software-Codesign/Part2-AXI-GPIO/README.md
     - Extra 1 Vitis Change xsa and Update Bitstream: Hardware-Software-Codesign/Extra1-Vitis-Change-xsa-and-Update-Bitstream/README.md

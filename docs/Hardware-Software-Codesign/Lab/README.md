@@ -12,4 +12,6 @@
 
 [Lab5-DSP](./Lab5-DSP/)
 
-[Lab6-CDMA](./Lab6-CDMA/)
+[Lab6-DMA](./Lab6-DMA/)
+
+[Lab7-CDMA](./Lab7-CDMA/)
