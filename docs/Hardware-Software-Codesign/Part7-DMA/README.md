@@ -2,6 +2,8 @@
 
 本章將介紹如何在 PYNQ 上使用 **Direct Memory Access (DMA)** 模組實現資料傳輸，並加速 **FFT** 運算。
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
+
 ## Review AXI Stream
 
 ![AXI_Stream](./png/AXI_Stream.png)

@@ -35,7 +35,10 @@ nav:
     - Part 3 FPGA Design Flow: Vivado-Tutorial/Part3-FPGA-Design-Flow/README.md
     - Extra 2 Synthesis and Implementation Strategies: Vivado-Tutorial/Extra2-Synthesis-and-Implementation-Strategies/README.md
     - Extra 3 Constraint: Vivado-Tutorial/Extra3-Constraint/README.md
-    - Part 4 IP Package and Block Design: Vivado-Tutorial/Part4-IP-Package-and-Block-Design/README.md
+    - Part 4 IP Package and Block Design: 
+      - Overview: Vivado-Tutorial/Part4-IP-Package-and-Block-Design/README.md
+      - Part 4-1 IP Package: Vivado-Tutorial/Part4-IP-Package-and-Block-Design/Part4-1-IP-Package/README.md
+      - Part 4-2 Block Design: Vivado-Tutorial/Part4-IP-Package-and-Block-Design/Part4-2-Block-Design/README.md
     - Extra 4 Debugger: Vivado-Tutorial/Extra4-Debugger/README.md
   - Hardware Software Codesign: 
     - Overview: Hardware-Software-Codesign/README.md

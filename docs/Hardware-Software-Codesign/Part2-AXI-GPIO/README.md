@@ -2,6 +2,8 @@
 
 本章將介紹如何使用 AXI GPIO (General Purpose Input/Output) IP，透過軟體程式控制板子上的 Switch 與 LED，並進一步將資料寫入 GPIO 作為控制訊號，驅動硬體電路（如 Adder/Subtracter）。
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
+
 ## Purpose  
 
 透過本章節的實作，學習如何使用 AXI GPIO IP 與 Processing System (PS) 進行互動，並透過軟體程式：

@@ -2,6 +2,8 @@
 
 先前在 [Vivado-Tutorial/Extra4-Debugger](../../Vivado-Tutorial/Extra4-Debugger/) 當中已經有教過 Debugger 如何使用，若還沒看過可先回去複習，在本章節中，我們將說明如何在 PYNQ 端執行程式時，即時觀測 PL（Programmable Logic）端的訊號，便於除錯與驗證硬體設計。
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
+
 ## Add System ILA IP
 
 1. 我們這邊沿用 [Part6-PYNQ-Jupyter-Notebook](../Part6-PYNQ-Jupyter-Notebook/) 最後面設計出的 Block Design 作為該次我們要加入 **ILA** 來觀察訊號的電路

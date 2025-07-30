@@ -7,6 +7,8 @@
   > 因為 convolution 的本質是大量的乘法與加法（MAC）運算，而 DSP 模組剛好內建乘加結構，能在一個時鐘週期內完成這種運算。相較用邏輯電路實作，DSP 不但運算更快、資源更省，還能支援固定點計算與並行處理，非常適合用來加速影像處理、濾波器等 convolution 應用。
 
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
+
 ## Problem1
 
 在 `Problem1` 中，使用 `DSP` 模組去完成 `Convolution sysem`。

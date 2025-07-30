@@ -2,6 +2,7 @@
 
 本次 lab 將介紹如何使用 AXI BRAM Controller，並學習直接透過 Verilog 語法呼叫 Block BRAM，也就是 `Verilog Template` 的設計方法，實作一個 On-Chip Memory System。
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
 
 ## 🛠️ Verilog Template vs Vivado IP Core
 | 項目                  | 手寫 Verilog Template                      | 使用 Vivado IP Core (e.g. FIFO Generator) |

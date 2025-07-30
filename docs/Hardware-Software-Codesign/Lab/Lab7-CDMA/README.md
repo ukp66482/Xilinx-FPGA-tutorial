@@ -11,6 +11,8 @@
 
 本次 Lab 有提供完成的 add.v 檔案，請自行將其包裝成可在 Vivado 中使用的 IP，並完成整體系統的建構與對應的 Jupyter 軟體設計。
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
+
 ## 系統架構圖
 
 ![system](png/system.jpg)

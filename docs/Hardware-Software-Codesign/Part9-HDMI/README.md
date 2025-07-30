@@ -2,6 +2,8 @@
 
 本章節實作一個基於 FPGA 的 HDMI 影像輸出模組，目的在於將數位影像資料透過 HDMI 介面即時顯示於外部螢幕上。系統可與影像處理模組整合，實現從資料處理到畫面顯示的完整資料流。
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
+
 ## Step 1
 
 至 [https://github.com/Xilinx/PYNQ/tree/master/boards/ip](https://github.com/Xilinx/PYNQ/tree/master/boards/ip)

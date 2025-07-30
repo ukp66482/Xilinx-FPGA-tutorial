@@ -5,77 +5,7 @@
 開始前請先參考 [Part1 Vivado Basic Tutorial](../Part1-Vivado-Basic-Tutorial/README.md)
 建立一個 Vivado Project
 
-假設我們已經有一個簡單的加法器程式 `adder.v`，以及對應的 Testbench `tb.v`：
-
-<details>
-<summary>adder.v</summary>
-
-```verilog
-module adder(
-    input clk,
-    input rst,
-    input [7:0] a,
-    input [7:0] b,
-    output reg  [7:0]   c
-    );
-
-always @(posedge clk or posedge rst) begin
-   if (rst)
-     c <= 0;
-   else
-     c <= a + b;
- end
-
-endmodule
-```
-
-</details>
-
-<details>
-<summary>tb.v</summary>
-
-```verilog
-module tb ();
-    //Inputs
-    reg clk;
-    reg rst;
-    reg [7:0] a;
-    reg [7:0] b;
-    //Output
-    wire [7:0] c;
-
-    adder adder_i   (
-        .clk(clk),
-        .rst(rst),
-        .a(a),
-        .b(b),
-        .c(c)
-    );
-
-    initial begin
-        //Initialize
-        clk = 0;
-        rst = 0;
-        a = 0;
-        b = 0;
-        #10;
-        rst = 1;
-        #10;
-        rst = 0;
-        #100;
-        a = 4;
-        b = 7;
-        #10;
-        a = 8;
-        b = 17;
-    end
-
-    always #5 clk = ~clk ;
-
-endmodule
-```
-
-</details>
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
 
 ## Part 2.1 Open Project and Add Source File
 

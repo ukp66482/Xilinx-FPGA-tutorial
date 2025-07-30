@@ -5,6 +5,7 @@
 
 軟體端僅負責資料搬運，所有 convolution 運算必須在自行設計的 convolution IP 中完成，軟體端不得進行主要運算。
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
 
 >💡 **Hint：** 使用 Lab3 所學 CDMA 來搬運資料進入 Bram ，Convolution IP 從 Bram 內讀取 input data 後，將卷積結果存回 Bram 內，最後使用 CDMA 來搬運資料回到 PS 端。
 

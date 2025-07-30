@@ -2,6 +2,8 @@
 
 本章將介紹如何使用 PYNQ 的 Jupyter Notebook 開發環境，透過 Python 與 Overlay ，實現軟硬體協同運作的應用開發流程。使用者可以在網頁介面中，以 Python 程式碼輕鬆控制 PL（Programmable Logic）上的硬體模組，如 GPIO、加減器、影像處理電路等。
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
+
 ## Part 6.1 Flashing PYNQ Image to SD Card
 
 1. 在使用 `PYNQ` 板子前，首先需要將官方提供的映像檔（基於 Ubuntu 的 Linux 系統）燒錄到 microSD 卡中作為作業系統。

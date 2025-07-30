@@ -64,6 +64,8 @@ Xilinx FPGA 設計流程可以分為以下 6 個步驟：
 > - 產出 gate-level netlist 與 SDF 延遲檔，供 Place & Route (P&R) 與
 > Gate-level simulation 使用
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
+
 ## Part 3.1 Add Design Source / Constraint Files
 
 1. 參考 [Part 1](../Part1-Vivado-Basic-Tutorial/README.md) 建立一個新 Project

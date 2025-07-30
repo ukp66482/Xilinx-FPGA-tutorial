@@ -6,6 +6,8 @@
 
 ![AXI_Lite](./png/AXI_Lite.png)
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
+
 ## Part3.1 Create AXI-Lite IP
 
 1. Create a new Vivado project

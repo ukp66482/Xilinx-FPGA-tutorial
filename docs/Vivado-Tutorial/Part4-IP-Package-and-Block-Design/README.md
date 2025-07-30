@@ -5,6 +5,8 @@
 1. [Part4-1-IP-Package](./Part4-1-IP-Package/)：介紹如何將 RTL 封裝為自訂 IP，供 Block Design 使用  
 2. [Part4-2-Block Design](./Part4-2-Block-Design/)：實際操作 Vivado 的圖形化設計介面，將多個 IP 連接形成系統
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
+
 ## Additional  
 
 [Extra4-Debugger](../Extra4-Debugger/)

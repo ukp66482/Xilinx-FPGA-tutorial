@@ -2,6 +2,8 @@
 
 使用 PYNQ-Z2 上的 Zynq Processor 操作簡單的 C/C++  Project。
 
+[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
+
 > [!TIP]
 > Block design 可以參考 Part1 的設計
 
