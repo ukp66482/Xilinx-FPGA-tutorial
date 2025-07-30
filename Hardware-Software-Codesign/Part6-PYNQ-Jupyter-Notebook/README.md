@@ -110,7 +110,7 @@
 
     > 📌 overlay = Overlay("example.bit") 是什麼意思？  
     >
-    > 這行會載入名為 example.bit 的 bitstream 檔案，將你的硬體電路設計燒錄到 FPGA 上，並同時讀入對應的 .tcl / .hwh 檔案來建立 IP 區塊的對應資訊（像是記憶體地址、接口等）。
+    > 這行會載入名為 example.bit 的 bitstream 檔案，將你的硬體電路設計燒錄到 FPGA 上，並同時讀入對應的 .hwh 檔案來建立 IP 區塊的對應資訊（像是記憶體地址、Port連接等）。
 
 ## Additional  
 
