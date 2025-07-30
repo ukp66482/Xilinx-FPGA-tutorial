@@ -6,7 +6,7 @@
 
 [Lab2-AXI-GPIO](./Lab2-AXI-GPIO/)
 
-[Lab3-AXI-lite](./Lab3-AXI-lite/)
+[Lab3-AXI-Lite](./Lab3-AXI-Lite/)
 
 [Lab4-BRAM](./Lab4-BRAM/)
 
