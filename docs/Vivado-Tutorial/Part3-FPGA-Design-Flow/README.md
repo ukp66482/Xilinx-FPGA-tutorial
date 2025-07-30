@@ -27,29 +27,22 @@ Xilinx FPGA 設計流程可以分為以下 6 個步驟：
 
     - 將 bitstream 燒入至 FPGA，並使用 ILA (Integrated Logic Analyzer) 等工具進行邏輯分析與即時驗證
 
-> [!NOTE]
-> **Synthesis 電路合成**
+> 📌 **Synthesis 電路合成**
 >
 > Synthesis 負責將 RTL 程式轉換成可由 FPGA 實際執行的邏輯元件，例如
 > LUT (Look-Up Table)、Flip-Flop、MUX 等。
 >
 > Synthesis 的輸出是 **Netlist**，描述了邏輯元件之間的連接關係，
 > 供下一步的 Implementation 階段使用。
-
-<nobr>
-
-> [!NOTE]
-> **Implementation 電路實作**
+>
+> 📌 **Implementation 電路實作**
 >
 > Vivado 在 Implementation 階段會做以下兩個工作：
 >
 > - **Place Design**: 將邏輯元件放置到 FPGA 上的具體位置
 > - **Route Design**: 完成所有訊號間的連線，並考量時序要求
-
-<nobr>
-
-> [!NOTE]
-> **FPGA 與 ASIC Synthesis 的差異**
+>
+> 📌 **FPGA 與 ASIC Synthesis 的差異**
 >
 > 雖然 FPGA 與 ASIC 皆是使用 RTL（Verilog/VHDL）程式來合成，但因為兩者的目標硬體架構不同，導致合成結果有所差異：
 >
@@ -63,8 +56,6 @@ Xilinx FPGA 設計流程可以分為以下 6 個步驟：
 > - 目標為 **Standard Cell Library**，如 `AND2_X1`、`DFF_X1` 等
 > - 產出 gate-level netlist 與 SDF 延遲檔，供 Place & Route (P&R) 與
 > Gate-level simulation 使用
-
-[點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）](Reference.zip)
 
 ## Part 3.1 Add Design Source / Constraint Files
 
@@ -80,8 +71,7 @@ Xilinx FPGA 設計流程可以分為以下 6 個步驟：
 
     ![File_Hierarchy](./png/File_Hierarchy.png)
 
-> [!NOTE]
-> **Constraint 的用途**
+> 📌 **Constraint 的用途**
 >
 > 在 Xilinx FPGA 中，**Constraint** 檔案副檔名為 `.xdc`，他的主要功能是定義設計的時序與 I/O 限制：
 >
@@ -92,11 +82,8 @@ Xilinx FPGA 設計流程可以分為以下 6 個步驟：
 > Constraint 是 **Implementation** 階段中 *時序分析*、*資源配置* 的重要依據。
 >
 > 若沒有正確的 `.xdc`，Vivado 可能無法正確佈線，造成 **Timing Violation** 等問題。
-
-<nobr>
-
-> [!TIP]
-> **Constraint Set**
+>
+> 📌 **Constraint Set**
 >
 > Vivado 支援使用 Constraint Set 來管理多組時序與 I/O 限制設定
 >
@@ -114,9 +101,6 @@ Xilinx FPGA 設計流程可以分為以下 6 個步驟：
 
 2. 檢視合成後的結果：Synthesis 完成後，可以點擊左側 `SYNTHESIS` → `Open Synthesized Design`
 
-    <details>
-    <summary>Synthesis Report</summary>
-
     ![Synthesis_Report](./png/Synthesis_Report.png)
 
     - **Report Timing Summary**：預估時序是否符合目標頻率
@@ -124,15 +108,9 @@ Xilinx FPGA 設計流程可以分為以下 6 個步驟：
     - **Report Power**：估算功耗
     - **Report DRC (Design Rule Check)**：檢查邏輯結構是否存在問題
 
-    </details>
-
-> [!WARNING]
-> 因為尚未經過 Placement 與 Routing，缺少實體路徑與實際延遲，因此 Timing 類報告只是基於 Netlist 的預估
+    > ⚠️ 因為尚未經過 Placement 與 Routing，缺少實體路徑與實際延遲，因此 Timing 類報告只是基於 Netlist 的預估
 
 3. 檢視 Synthesis 後的電路：點選左側的 `SYNTHESIS` → `Open Synthesized Design` → `Schematic`
-
-    <details>
-    <summary>Schematic</summary>
 
     ![電路圖](./png/Schematic_synthesis.png)
 
@@ -148,16 +126,11 @@ Xilinx FPGA 設計流程可以分為以下 6 個步驟：
         - 帶有 Clear 與 Enable 訊號的 D 型正緣 Flip Flop
 
         ![FDCE](./png/FDCE.png)
-    </details>
 
 4. 點選左上方 `Project Manager` 後跳出的 `Project Summary` 可以看到 Utilization，
    其他資訊則要等到 **Implementation** 後才能看到
 
-    <details>
-    <summary>Project Summary</summary>
-
     ![Project Summary](./png/Synthesis_Overview.png)
-    </details>
 
 ## Part 3.3 Implementation
 
@@ -167,22 +140,13 @@ Xilinx FPGA 設計流程可以分為以下 6 個步驟：
 
 2. 檢視電路實際擺放位置：Implementation 完成後，點選左側的 `IMPLEMENTATION` → `Open Implemented Design`
 
-    <details>
-    <summary>Implemented Design</summary>
-
     ![Implemented_Design](./png/Implementation_Device.png)
-    </details>
 
 3. 在 **Project Summary** 中可以看到 Implementation 的結果，包含 Timing、Utilization、Power 等資訊
 
-    <details>
-    <summary>Project Summary</summary>
-
     ![Implementation_Overview](./png/Implementation_Overview.png)
-    </details>
 
-> [!NOTE]
-> **Implementation** 階段 Vivado 會統整出:
+> 📌 **Implementation** 階段 Vivado 會統整出:
 >
 > - **Power Estimation**：預估功耗
 > - **Timing Analysis**：分析 Setup/Hold Timing 是否滿足設計要求
@@ -200,10 +164,10 @@ Xilinx FPGA 設計流程可以分為以下 6 個步驟：
 
 ![Bitstream_Generated](./png/Bitstream_Generated.png)
 
-> [!NOTE]
+> 📌
 > **Bitstream**
 >
-> Bitstream (`.bit` / `.bin`) 是一個二進位檔案，供燒錄到 FPGA 中
+> Bitstream (`.bit`) 是一個二進位檔案，供燒錄到 FPGA 中
 >
 > 其中包含了 FPGA 的配置資料：
 >
@@ -227,8 +191,7 @@ Xilinx FPGA 設計流程可以分為以下 6 個步驟：
 
 2. 將 8 號區的 Jumper 插至 `JTAG` 的位置
 
-    > [!NOTE]
-    > **JTAG (Joint Test Action Group)**
+    > 📌 **JTAG (Joint Test Action Group)**
     >
     > JTAG 是一種標準的 Debug 與燒錄介面，主流 FPGA（如 Xilinx、Intel）都支援此標準。
     >
@@ -238,8 +201,7 @@ Xilinx FPGA 設計流程可以分為以下 6 個步驟：
 
 3. 打開開關 (3號區)
 
-    > [!CAUTION]
-    >**關機時一定要先關閉開關才可以拔除電源線**
+    > ⚠️ **關機時一定要先關閉開關才可以拔除電源線**
 
 4. 開啟 FPGA 後，回到 Vivado 並點選 `Open Hardware Manager` → `Open Target` → `Auto Connect`
 
