@@ -1,0 +1,1430 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Extra1-Linter/">
+      
+      
+        <link rel="next" href="../Extra2-Synthesis-and-Implementation-Strategies/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>Part 3 FPGA Design Flow - Xilinx-FPGA-Tutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part3-fpga-design-flow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Xilinx-FPGA-Tutorials" class="md-header__button md-logo" aria-label="Xilinx-FPGA-Tutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Xilinx-FPGA-Tutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 3 FPGA Design Flow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ukp66482/Xilinx-FPGA-tutorial" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Xilinx-FPGA-Tutorials" class="md-nav__button md-logo" aria-label="Xilinx-FPGA-Tutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Xilinx-FPGA-Tutorials
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ukp66482/Xilinx-FPGA-tutorial" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vivado-Installation-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vivado Installation Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Vivado Tutorial
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Vivado Tutorial
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part1-Vivado-Basic-Tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 1 Vivado Basic Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part2-RTL-Design-and-Simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 2 RTL Design and Simulation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Extra1-Linter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 1 Linter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Part 3 FPGA Design Flow
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 3 FPGA Design Flow
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-31-add-design-source-constraint-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3.1 Add Design Source / Constraint Files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-32-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3.2 Synthesis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-33-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3.3 Implementation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-34-generate-bitstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3.4 Generate Bitstream
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-35-program-to-fpga" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3.5 Program to FPGA
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Extra2-Synthesis-and-Implementation-Strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 2 Synthesis and Implementation Strategies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Extra3-Constraint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 3 Constraint
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part4-IP-Package-and-Block-Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 4 IP Package and Block Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Extra4-Debugger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 4 Debugger
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Hardware Software Codesign
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Hardware Software Codesign
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part1-Zynq-Processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 1 Zynq Processor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part2-AXI-GPIO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 2 AXI GPIO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Extra1-Vitis-Change-xsa-and-Update-Bitstream/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 1 Vitis Change xsa and Update Bitstream
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part3-AXI-Lite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 3 AXI-Lite
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Extra2-AXI-Mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 2 AXI Mapping
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Extra3-AXI-Protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 3 AXI Protocol
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part4-BRAM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 4 BRAM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part5-DSP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 5 DSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part6-PYNQ-Jupyter-Notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 6 PYNQ Jupyter Notebook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Extra4-ILA-with-PYNQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 4 ILA with PYNQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part7-DMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 7 DMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part8-CDMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 8 CDMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part9-HDMI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 9 HDMI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-31-add-design-source-constraint-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3.1 Add Design Source / Constraint Files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-32-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3.2 Synthesis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-33-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3.3 Implementation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-34-generate-bitstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3.4 Generate Bitstream
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-35-program-to-fpga" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3.5 Program to FPGA
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="part3-fpga-design-flow">Part3 FPGA Design Flow</h1>
+<p>Xilinx FPGA 設計流程可以分為以下 6 個步驟：</p>
+<ol>
+<li>
+<p><strong>RTL Design</strong></p>
+<ul>
+<li>使用 Verilog/VHDL 撰寫 module</li>
+</ul>
+</li>
+<li>
+<p><strong>Behavior Simulation</strong></p>
+<ul>
+<li>透過 Testbench 測試功能邏輯是否正確</li>
+</ul>
+</li>
+<li>
+<p><strong>Synthesis</strong></p>
+<ul>
+<li>將 RTL 轉換為邏輯元件（如 <code>LUT</code>、<code>FF</code>、<code>MUX</code>、<code>CLB</code> 等），輸出成 Netlist</li>
+</ul>
+</li>
+<li>
+<p><strong>Implementation</strong></p>
+<ul>
+<li>包含 <strong>Placement</strong> 與 <strong>Routing</strong> 兩個階段，將合成後的邏輯元件實際配置到 FPGA 上，如 <code>CLB</code>、
+<code>Routing Channel</code>、<code>IO Bank</code> 等</li>
+</ul>
+</li>
+<li>
+<p><strong>Generate Bitstream</strong></p>
+<ul>
+<li>產生 bitstream (<code>.bit</code>) 檔，以供燒錄到 FPGA 中</li>
+</ul>
+</li>
+<li>
+<p><strong>Program &amp; Debug</strong></p>
+<ul>
+<li>將 bitstream 燒入至 FPGA，並使用 ILA (Integrated Logic Analyzer) 等工具進行邏輯分析與即時驗證</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>[!NOTE]
+<strong>Synthesis 電路合成</strong></p>
+<p>Synthesis 負責將 RTL 程式轉換成可由 FPGA 實際執行的邏輯元件，例如
+LUT (Look-Up Table)、Flip-Flop、MUX 等。</p>
+<p>Synthesis 的輸出是 <strong>Netlist</strong>，描述了邏輯元件之間的連接關係，
+供下一步的 Implementation 階段使用。</p>
+</blockquote>
+<p><nobr></p>
+<blockquote>
+<p>[!NOTE]
+<strong>Implementation 電路實作</strong></p>
+<p>Vivado 在 Implementation 階段會做以下兩個工作：</p>
+<ul>
+<li><strong>Place Design</strong>: 將邏輯元件放置到 FPGA 上的具體位置</li>
+<li><strong>Route Design</strong>: 完成所有訊號間的連線，並考量時序要求</li>
+</ul>
+</blockquote>
+<p><nobr></p>
+<blockquote>
+<p>[!NOTE]
+<strong>FPGA 與 ASIC Synthesis 的差異</strong></p>
+<p>雖然 FPGA 與 ASIC 皆是使用 RTL（Verilog/VHDL）程式來合成，但因為兩者的目標硬體架構不同，導致合成結果有所差異：</p>
+<p><strong>FPGA Synthesis</strong>：</p>
+<ul>
+<li>目標為 FPGA 元件，如 <code>LUT</code>、<code>FF</code>、<code>BRAM</code>、<code>DSP</code> 等</li>
+<li>合成結果會映射到 FPGA 上面真實存在的實體邏輯資源</li>
+</ul>
+<p><strong>ASIC Synthesis</strong>：</p>
+<ul>
+<li>目標為 <strong>Standard Cell Library</strong>，如 <code>AND2_X1</code>、<code>DFF_X1</code> 等</li>
+<li>產出 gate-level netlist 與 SDF 延遲檔，供 Place &amp; Route (P&amp;R) 與
+Gate-level simulation 使用</li>
+</ul>
+</blockquote>
+<h2 id="part-31-add-design-source-constraint-files">Part 3.1 Add Design Source / Constraint Files</h2>
+<ol>
+<li>
+<p>參考 <a href="../Part1-Vivado-Basic-Tutorial/">Part 1</a> 建立一個新 Project</p>
+</li>
+<li>
+<p>將 <code>/RTL</code> 與 <code>/xdc</code> 目錄下的檔案加到 project 中，可參考
+   <a href="../Part2-RTL-Design-and-Simulation/">Part 2</a></p>
+<ul>
+<li>點選 <code>Add or create design sources</code>，加入 <code>/RTL</code> 內的 <code>top.v</code> <code>LED.v</code> <code>divider.v</code></li>
+<li>點選 <code>Add or create constraints</code>，加入 <code>/xdc</code> 內的 <code>blinky.xdc</code> <code>pynq-z2_v1.0.xdc</code></li>
+</ul>
+</li>
+<li>
+<p>成功的話 Project Hierarchy 應該會如下所示：</p>
+<p><img alt="File_Hierarchy" src="png/File_Hierarchy.png" /></p>
+</li>
+</ol>
+<blockquote>
+<p>[!NOTE]
+<strong>Constraint 的用途</strong></p>
+<p>在 Xilinx FPGA 中，<strong>Constraint</strong> 檔案副檔名為 <code>.xdc</code>，他的主要功能是定義設計的時序與 I/O 限制：</p>
+<ul>
+<li><strong>Clock Constraints</strong>： 定義時脈的頻率與來源，例如 <code>create_clock</code></li>
+<li><strong>I/O Pin Assignment</strong>：定義實體腳位對應的 signal，例如將 <code>clk</code> 對應到 <code>W5</code></li>
+<li><strong>I/O Standards</strong>：設定電壓與訊號標準，如 <code>LVCMOS33</code></li>
+</ul>
+<p>Constraint 是 <strong>Implementation</strong> 階段中 <em>時序分析</em>、<em>資源配置</em> 的重要依據。</p>
+<p>若沒有正確的 <code>.xdc</code>，Vivado 可能無法正確佈線，造成 <strong>Timing Violation</strong> 等問題。</p>
+</blockquote>
+<p><nobr></p>
+<blockquote>
+<p>[!TIP]
+<strong>Constraint Set</strong></p>
+<p>Vivado 支援使用 Constraint Set 來管理多組時序與 I/O 限制設定</p>
+<p>未來在面對大型設計時，可以根據不同模組與需求建立對應的 Constraint Set，進行驗證與切換設計條件。</p>
+</blockquote>
+<h2 id="part-32-synthesis">Part 3.2 Synthesis</h2>
+<ol>
+<li>
+<p>執行 <strong>RTL Synthesis</strong>：點選左側 <code>SYNTHESIS</code> → <code>Run Synthesis</code></p>
+<p>在彈出的設定視窗中，Vivado 會詢問你希望分配多少執行緒來執行合成。</p>
+<p>可以依照自己電腦的 CPU 核心數選擇，分配越多執行緒，Synthesis 所需時間通常會越短。</p>
+<p><img alt="Synthesize" src="png/Synthesize.png" /></p>
+</li>
+<li>
+<p>檢視合成後的結果：Synthesis 完成後，可以點擊左側 <code>SYNTHESIS</code> → <code>Open Synthesized Design</code></p>
+<p><details>
+<summary>Synthesis Report</summary></p>
+<p><img alt="Synthesis_Report" src="png/Synthesis_Report.png" /></p>
+<ul>
+<li><strong>Report Timing Summary</strong>：預估時序是否符合目標頻率</li>
+<li><strong>Report Utilization</strong>：預估使用多少 CLB、LUT、FF 等邏輯資源</li>
+<li><strong>Report Power</strong>：估算功耗</li>
+<li><strong>Report DRC (Design Rule Check)</strong>：檢查邏輯結構是否存在問題</li>
+</ul>
+</details>
+</li>
+</ol>
+<blockquote>
+<p>[!WARNING]
+因為尚未經過 Placement 與 Routing，缺少實體路徑與實際延遲，因此 Timing 類報告只是基於 Netlist 的預估</p>
+</blockquote>
+<ol>
+<li>
+<p>檢視 Synthesis 後的電路：點選左側的 <code>SYNTHESIS</code> → <code>Open Synthesized Design</code> → <code>Schematic</code></p>
+<p><details>
+<summary>Schematic</summary></p>
+<p><img alt="電路圖" src="png/Schematic_synthesis.png" /></p>
+<ul>
+<li>
+<p><strong>LUT6</strong> (6-input Look-Up Table)</p>
+<ul>
+<li>LUT 是組成 FPGA 設計邏輯的核心之一，Vivado 會自動將 RTL 中的邏輯運算映射為 LUT</li>
+<li>LUT6 有 6 個輸入，可以實現任何 6-input 的布林函數</li>
+</ul>
+<p><img alt="LUT6" src="png/LUT6.png" /></p>
+</li>
+<li>
+<p><strong>FDCE</strong> (Flip-Flop with D input, Clock, Clear, Enable)</p>
+<ul>
+<li>帶有 Clear 與 Enable 訊號的 D 型正緣 Flip Flop</li>
+</ul>
+<p><img alt="FDCE" src="png/FDCE.png" />
+    </details></p>
+</li>
+</ul>
+</li>
+<li>
+<p>點選左上方 <code>Project Manager</code> 後跳出的 <code>Project Summary</code> 可以看到 Utilization，
+   其他資訊則要等到 <strong>Implementation</strong> 後才能看到</p>
+<p><details>
+<summary>Project Summary</summary></p>
+<p><img alt="Project Summary" src="png/Synthesis_Overview.png" />
+</details></p>
+</li>
+</ol>
+<h2 id="part-33-implementation">Part 3.3 Implementation</h2>
+<ol>
+<li>
+<p>執行 <strong>Implementation</strong>：點選左側 <code>IMPLEMENTATION</code> → <code>Run Implementation</code></p>
+<p><img alt="Implementation" src="png/Implementation.png" /></p>
+</li>
+<li>
+<p>檢視電路實際擺放位置：Implementation 完成後，點選左側的 <code>IMPLEMENTATION</code> → <code>Open Implemented Design</code></p>
+<p><details>
+<summary>Implemented Design</summary></p>
+<p><img alt="Implemented_Design" src="png/Implementation_Device.png" />
+</details></p>
+</li>
+<li>
+<p>在 <strong>Project Summary</strong> 中可以看到 Implementation 的結果，包含 Timing、Utilization、Power 等資訊</p>
+<p><details>
+<summary>Project Summary</summary></p>
+<p><img alt="Implementation_Overview" src="png/Implementation_Overview.png" />
+</details></p>
+</li>
+</ol>
+<blockquote>
+<p>[!NOTE]
+<strong>Implementation</strong> 階段 Vivado 會統整出:</p>
+<ul>
+<li><strong>Power Estimation</strong>：預估功耗</li>
+<li><strong>Timing Analysis</strong>：分析 Setup/Hold Timing 是否滿足設計要求</li>
+<li><strong>DRC（Design Rule Check）</strong>：檢查佈線、資源使用是否符合規則</li>
+<li><strong>Utilization Report</strong>：彙整資源使用情況（LUT、FF、BRAM 等）</li>
+<li><strong>Schematic Viewer</strong>：可查看實體配置後的電路圖</li>
+</ul>
+</blockquote>
+<h2 id="part-34-generate-bitstream">Part 3.4 Generate Bitstream</h2>
+<ol>
+<li>生成 Bitstream：點選左側 <code>PROGRAM AND DEBUG</code> → <code>Generate Bitstream</code></li>
+</ol>
+<p><img alt="Generate_Bitstream" src="png/Generate_Bitstream.png" /></p>
+<p>完成後會有以下畫面</p>
+<p><img alt="Bitstream_Generated" src="png/Bitstream_Generated.png" /></p>
+<blockquote>
+<p>[!NOTE]
+<strong>Bitstream</strong></p>
+<p>Bitstream (<code>.bit</code> / <code>.bin</code>) 是一個二進位檔案，供燒錄到 FPGA 中</p>
+<p>其中包含了 FPGA 的配置資料：</p>
+<ul>
+<li>邏輯元件的對應與連接 (from Netlist)</li>
+<li>Placement &amp; Routing 結果</li>
+<li>I/O 配置與 Constraint (from <code>.xdc</code>)</li>
+</ul>
+<p>下圖為 XC4000 系列的 Fast Carry 硬體架構。</p>
+<p><img alt="XC4000_Fast_Carry" src="png/XC4000_Fast_Carry.png" /></p>
+<p>可以看到圖中 M 代表多工器（MUX），Bitstream 會被用來控制這些 MUX 的選擇路徑</p>
+<p>藉此設定每個邏輯元件與連線的實際行為與配置</p>
+</blockquote>
+<h2 id="part-35-program-to-fpga">Part 3.5 Program to FPGA</h2>
+<p><img alt="PYNQ" src="png/PYNQ.jpg" /></p>
+<ol>
+<li>
+<p>將 FPGA 與電腦連接 (將 Micro USB 插上 Port 2)</p>
+</li>
+<li>
+<p>將 8 號區的 Jumper 插至 <code>JTAG</code> 的位置</p>
+<blockquote>
+<p>[!NOTE]
+<strong>JTAG (Joint Test Action Group)</strong></p>
+<p>JTAG 是一種標準的 Debug 與燒錄介面，主流 FPGA（如 Xilinx、Intel）都支援此標準。</p>
+<p>FPGA 在使用 <code>JTAG</code> 模式下進行配置時，會根據 IEEE 1149.1 標準進行串列資料傳輸。</p>
+<p>可將我們的 Bitstream 透過 <code>Boundary-Scan</code> 的方式燒入進去板子中</p>
+</blockquote>
+</li>
+<li>
+<p>打開開關 (3號區)</p>
+<blockquote>
+<p>[!CAUTION]
+<strong>關機時一定要先關閉開關才可以拔除電源線</strong></p>
+</blockquote>
+</li>
+<li>
+<p>開啟 FPGA 後，回到 Vivado 並點選 <code>Open Hardware Manager</code> → <code>Open Target</code> → <code>Auto Connect</code></p>
+<p><img alt="Open_Target" src="png/Open_Target.png" /></p>
+</li>
+<li>
+<p>等待 Vivado 偵測到 <code>xc7z020</code> (Pynq-z2 所使用的 FPGA 晶片組) 後按下 <code>Program device</code> ，再點選 <code>Program</code></p>
+<p><img alt="Progran_Device" src="png/Program_Device.png" /></p>
+</li>
+<li>
+<p>燒錄完成後，可以參考 RTL Code 觀察 Switch 和 LEDs 的關係</p>
+</li>
+</ol>
+<h2 id="additional">Additional</h2>
+<p><a href="../Extra2-Synthesis-and-Implementation-Strategies/">Extra2-Synthesis-and-Implementation-Strategies</a></p>
+<p><a href="../Extra3-Constraint/">Extra3-Constraint</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.50899def.min.js"></script>
+      
+    
+  </body>
+</html>

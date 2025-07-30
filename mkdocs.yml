@@ -1,5 +1,8 @@
 site_name: Xilinx-FPGA-Tutorials
 
+repo_url: https://github.com/ukp66482/Xilinx-FPGA-tutorial
+repo_name: GitHub
+
 plugins:
   - search
   - awesome-pages
