@@ -1,0 +1,1736 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Lab3-AXI-Lite/">
+      
+      
+        <link rel="next" href="../Lab5-DSP/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>Lab 4 BRAM - Xilinx-FPGA-Tutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fpga-design-lab4" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Xilinx-FPGA-Tutorials" class="md-header__button md-logo" aria-label="Xilinx-FPGA-Tutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Xilinx-FPGA-Tutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 4 BRAM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ukp66482/Xilinx-FPGA-tutorial" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Xilinx-FPGA-Tutorials" class="md-nav__button md-logo" aria-label="Xilinx-FPGA-Tutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Xilinx-FPGA-Tutorials
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ukp66482/Xilinx-FPGA-tutorial" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Vivado-Installation-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vivado Installation Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Vivado Tutorial
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Vivado Tutorial
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Vivado-Tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Vivado-Tutorial/Part1-Vivado-Basic-Tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 1 Vivado Basic Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Vivado-Tutorial/Part2-RTL-Design-and-Simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 2 RTL Design and Simulation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Vivado-Tutorial/Extra1-Linter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 1 Linter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Vivado-Tutorial/Part3-FPGA-Design-Flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 3 FPGA Design Flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Vivado-Tutorial/Extra2-Synthesis-and-Implementation-Strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 2 Synthesis and Implementation Strategies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Vivado-Tutorial/Extra3-Constraint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 3 Constraint
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Part 4 IP Package and Block Design
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            Part 4 IP Package and Block Design
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Vivado-Tutorial/Part4-IP-Package-and-Block-Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Vivado-Tutorial/Part4-IP-Package-and-Block-Design/Part4-1-IP-Package/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 4-1 IP Package
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Vivado-Tutorial/Part4-IP-Package-and-Block-Design/Part4-2-Block-Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 4-2 Block Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Vivado-Tutorial/Extra4-Debugger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 4 Debugger
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Hardware Software Codesign
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Hardware Software Codesign
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lab
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lab1-UART/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 1 UART
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lab2-AXI-GPIO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 2 AXI GPIO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lab3-AXI-Lite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 3 AXI-Lite
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Lab 4 BRAM
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 4 BRAM
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#verilog-template-vs-vivado-ip-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Verilog Template vs Vivado IP Core
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verilog-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verilog Template
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spec
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bram-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bram controller 配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ramb36e1-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAMB36E1 template參數設置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAMB36E1 template參數設置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ip-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      IP I/O
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ramb36e1-available-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAMB36E1 Available Attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ramb36e1-port-descriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAMB36E1 Port Descriptions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilization-of-bram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilization of BRAM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-testing-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Testing Result
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      進階練習 :
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lab5-DSP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 5 DSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lab6-DMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 6 DMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lab7-CDMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 7 CDMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part1-Zynq-Processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 1 Zynq Processor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part2-AXI-GPIO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 2 AXI GPIO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Extra1-Vitis-Change-xsa-and-Update-Bitstream/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 1 Vitis Change xsa and Update Bitstream
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part3-AXI-Lite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 3 AXI-Lite
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Extra2-AXI-Mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 2 AXI Mapping
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Extra3-AXI-Protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 3 AXI Protocol
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part4-BRAM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 4 BRAM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part5-DSP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 5 DSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part6-PYNQ-Jupyter-Notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 6 PYNQ Jupyter Notebook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Extra4-ILA-with-PYNQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 4 ILA with PYNQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part7-DMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 7 DMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part8-CDMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 8 CDMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part9-HDMI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 9 HDMI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#verilog-template-vs-vivado-ip-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Verilog Template vs Vivado IP Core
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verilog-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verilog Template
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spec
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bram-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bram controller 配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ramb36e1-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAMB36E1 template參數設置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAMB36E1 template參數設置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ip-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      IP I/O
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ramb36e1-available-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAMB36E1 Available Attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ramb36e1-port-descriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAMB36E1 Port Descriptions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilization-of-bram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilization of BRAM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-testing-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Testing Result
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      進階練習 :
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="fpga-design-lab4">FPGA Design Lab4</h1>
+<p>本次 lab 將介紹如何使用 AXI BRAM Controller，並學習直接透過 Verilog 語法呼叫 Block BRAM，也就是 <code>Verilog Template</code> 的設計方法，實作一個 On-Chip Memory System。</p>
+<p><a href="Reference.zip">點我下載參考資料夾，內含本次教學或 Lab 所需的程式碼（ZIP）</a></p>
+<h2 id="verilog-template-vs-vivado-ip-core">🛠️ Verilog Template vs Vivado IP Core</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>手寫 Verilog Template</th>
+<th>使用 Vivado IP Core (e.g. FIFO Generator)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⚙ <strong>設計彈性</strong></td>
+<td>✅ 高，可自定資料寬度、控制方式等</td>
+<td>❌ 中等，彈性依 IP 設定項目而定</td>
+</tr>
+<tr>
+<td>🔍 <strong>可讀性 / 可維護性</strong></td>
+<td>❌ 較低，需手動管理 FIFO 邏輯</td>
+<td>✅ 較高，IP 有圖形化介面與文檔支持</td>
+</tr>
+<tr>
+<td>🔄 <strong>整合 Vivado BD</strong></td>
+<td>❌ 需手動 RTL instantiation 和 port mapping</td>
+<td>✅ 自動整合，容易連接到 AXI/AXI-Stream</td>
+</tr>
+<tr>
+<td>🧪 <strong>驗證方便性</strong></td>
+<td>❌ 較麻煩，需要自己寫 testbench 或與 AXI 對接</td>
+<td>✅ 已知功能穩定，Xilinx 已驗證</td>
+</tr>
+<tr>
+<td>🧱 <strong>資源使用效率</strong></td>
+<td>✅ 可最佳化，依照特定需求裁剪資源</td>
+<td>❌ 通常較大、保守，為泛用性設計</td>
+</tr>
+<tr>
+<td>⏱ <strong>開發時間</strong></td>
+<td>❌ 長，需要開發與除錯</td>
+<td>✅ 快，幾分鐘內可產生並連接好</td>
+</tr>
+<tr>
+<td>📤 <strong>時序優化與建議</strong></td>
+<td>❌ 自己負責 reset、clock domain、timing closure</td>
+<td>✅ IP 通常已考慮 CDC/latency</td>
+</tr>
+<tr>
+<td>📚 <strong>學習與理解價值</strong></td>
+<td>✅ 非常好，幫助了解 FIFO / memory 實作</td>
+<td>❌ 抽象化高，學習價值相對少</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verilog-template">Verilog Template</h2>
+<p>主要分成兩個部分 : <code>Available Attributes</code> 、 <code>Port Descriptions</code></p>
+<ol>
+<li>
+<p><code>Available Attributes</code> : 可設定 Block RAM 的操作模式、初始值、資料寬度等等參數。</p>
+</li>
+<li>
+<p><code>Port Descriptions</code> : 定義 Block RAM 的 I/O Ports。</p>
+</li>
+</ol>
+<h2 id="spec">Spec</h2>
+<p><img alt="" src="png/spec.png" /></p>
+<h2 id="bram-controller">Bram controller 配置</h2>
+<p>AXI BRAM controller只會被分配到一個Address，只能控制一個 port ，因此本次設計為 <code>True Dual Port</code> 的情況下需使用到兩顆 AXI BRAM Controller ， 這樣子才能獲得兩個 Address 來給 BRAM 的 Port A、
+Port B 做使用。</p>
+<p><img alt="" src="png/bram_controller.png" /></p>
+<p>AXI protocol為Byte Addressable的，
+而我們要控制的BRAM為32Kb的大小，
+換算成Byte為32Kb / 8bit = 4KB，因此在
+Range設定這邊需使用4K。</p>
+<p><img alt="" src="png/address.png" /></p>
+<p>根據 <code>address path diagram</code>可以看到，分配給AXIBram Controller 的
+0x4000_0000 - 0x4000_0FFF 經過 AXI Smart Connect 後就會變成 0x0 - 0xFFF，給後續32Kb(4KB)的BRAM做使用。</p>
+<p><img alt="" src="png/address_path_diagram.png" /></p>
+<h2 id="ramb36e1-template">RAMB36E1 template參數設置</h2>
+<h3 id="ip-io">IP I/O</h3>
+<p>Addr Width 為 12bit，因為 <code>AXI protocol 為 Byte Addressable</code>的，32Kb
+的記憶體需要用到 4K 的 range 去做定址，因此為 12bit-width。</p>
+<p>Data Width 為 32bit，因此 input(D_in_X)、output(D_out_X) 的部分都設置為32bit。</p>
+<p><img alt="" src="png/module.png" /></p>
+<hr />
+<h3 id="ramb36e1-available-attributes">RAMB36E1 Available Attributes</h3>
+<p>根據 SPEC 要求，將 RAM_MODE 設置為 True Dual Port 
+mode。</p>
+<p>DOA_REG、DOB_REG 都設成 1，在
+RAMB36E1 的 output 將會有一個額外的 Register 拿來儲存輸出的值，讓後續的電路可以有一個完整的 cycle 來
+做存取資料。</p>
+<p><code>ECC</code>設置皆設定成 <code>FALSE</code>，因 RAMB36E1 設置成TDP模式時不能使用 ECC。</p>
+<p><img alt="" src="png/TDP.png" /></p>
+<p>RAMB36E1 在 TDP 模式下，<code>Port Data Width</code> 只能設置成下方幾種數字，此次設計為 read/write width 
+為 32bit 的 BRAM ，因此設置成 36bit ， 36bit 其中 32bit 為 data 另外4個 bit 為 Paritybit ，雖然 TDP 下不支援 ECC 但根據 xilinx 提供的文檔我們不能單純設置成 32bit 仍需設置成 36bit 才正確。</p>
+<p><img alt="" src="png/Port_width.png" /></p>
+<p>依 SPEC 要求，每 32 bit 為一個 word。 Offset 則為從 Base address 往後幾個 Byte，其中每4個 offset 代表 4 byte，亦即 1 word 。 E.g. offset=28，則將數值設置在第 7 個 word 上。</p>
+<p><img alt="" src="png/Initial_value.png" /></p>
+<hr />
+<h3 id="ramb36e1-port-descriptions">RAMB36E1 Port Descriptions</h3>
+<p>RAMB36E1 在 True Dual Port (TDP) 模式下支援 <code>asynchronous clock domains</code>，Port A、Port 
+B可以使用不同的clock。</p>
+<p><img alt="" src="png/clock.png" /></p>
+<p>因 RAMB36E1 支援 <code>Byte wise write</code>，因此 WriteEnable 訊號為 4bit，因為 32bit width
+為 4Byte，WriteEnable 的 4 個 bit 各控制其中一個 Byte 的讀寫。</p>
+<p>E.g.:若只要更新第一個byte，則WEA將被
+設定成4’b0001</p>
+<p><img alt="" src="png/WenA.png" /></p>
+<p><img alt="" src="png/enable.png" /></p>
+<hr />
+<p>先前在 Avaliable attribute 時，有設定 output register ，而下圖兩個訊號則控制該
+output register 是否去做更新，因此都設為1，使他保持更新 output register。</p>
+<p><img alt="" src="png/output_register.png" /></p>
+<p>RAM input/output data 皆為 32-bit，而 DOADO()、DOBDO() 為 output dual port，DIADI()、
+DIBDI() 為 input dual port。</p>
+<p><img alt="" src="png/Ram_IO.png" /></p>
+<hr />
+<p>RAMB36E1 實際上包含 36Kb 的容量，其中32Kb 用於資料儲存（Data Bits），額外的4Kb 則專門用來儲存 Parity Bits，這些位元只會在啟用 ECC 模式時使用。</p>
+<p>RAMB36E1 支援最小資料寬度為 1-bit，因此若配置為 1-bit 模式，便需要 2^15 個地址才能存滿
+32Kb。 Address Width 之所以設定為 16-bit，是因為：</p>
+<blockquote>
+<p>實際地址需要15-bit 。</p>
+<p>最前面保留的1-bit 是用來作為 cascade 模式（串接多個BRAM）時的選擇 bit。</p>
+<p>因此總共需要16-bit 的地址輸入。</p>
+</blockquote>
+<p>在使用 AXI BRAM Controller 時，addr_A 提供的是 <code>Byte Address</code>， 而 RAMB36E1 實際以每1 word = 32 bits = 4 bytes 為單位存取。因此在連接時需將最低 0～1 位元忽略，地址從 <code>addr_A[11:2]</code>開始使用，此處的位元表示的是第幾個 word 單位的地址。</p>
+<p><img alt="" src="png/ADDRBWRADDR.png" /></p>
+<p>根據xilinx提供的BRAM配置文檔可以看到，<code>Port Address Width = 10bit</code> 對應到我們設置的 addr_A[11:2]，ADDR Bus = [14:5] 則對應到 .ADDRARDADDR 裡面的第 14 個 bit到第2個 bit 剛好為 addr_A[11:2] 的位子。</p>
+<p><img alt="" src="png/Port_aspect_ratio.png" /></p>
+<hr />
+<h3 id="utilization-of-bram">Utilization of BRAM</h3>
+<p>根據 <code>Utilization report</code> 可以看到 Pynq-z2 的 BRAM 共有 140 個可使用，而我們這次透過 <code>RAMB36E1 template</code> 實例化了一顆 dual port BRAM 使用了其中的 1 個 BRAM 。因此從上方 utilization report 看到我們BRAM 用了1/140 = 0.71%。</p>
+<p><img alt="" src="png/Utilization.png" /></p>
+<h2 id="software-testing-result">Software Testing Result</h2>
+<p><img alt="" src="png/Testing.png" /></p>
+<hr />
+<h2 id="_1">進階練習 :</h2>
+<p>使用 <code>Verilog Template</code> 的方法 ， 將 RAMB36E1 Configure 成 <code>36Kb FIFO</code> 。</p>
+<blockquote>
+<p>💡 <strong>Hint：</strong> 使用一顆 TDP mode 的 BRAM ，將要寫入 FIFO 的 Data 透過 PortA 寫入，要讀的 Data 透過 Port B 讀出。</p>
+</blockquote>
+<p><img alt="" src="png/FIFO.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.50899def.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1634 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Part4-IP-Package-and-Block-Design/Part4-2-Block-Design/">
+      
+      
+        <link rel="next" href="../../Hardware-Software-Codesign/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>Extra 4 Debugger - Xilinx-FPGA-Tutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#extra4-debugger" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Xilinx-FPGA-Tutorials" class="md-header__button md-logo" aria-label="Xilinx-FPGA-Tutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Xilinx-FPGA-Tutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Extra 4 Debugger
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ukp66482/Xilinx-FPGA-tutorial" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Xilinx-FPGA-Tutorials" class="md-nav__button md-logo" aria-label="Xilinx-FPGA-Tutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Xilinx-FPGA-Tutorials
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ukp66482/Xilinx-FPGA-tutorial" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vivado-Installation-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vivado Installation Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Vivado Tutorial
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Vivado Tutorial
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part1-Vivado-Basic-Tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 1 Vivado Basic Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part2-RTL-Design-and-Simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 2 RTL Design and Simulation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Extra1-Linter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 1 Linter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part3-FPGA-Design-Flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 3 FPGA Design Flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Extra2-Synthesis-and-Implementation-Strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 2 Synthesis and Implementation Strategies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Extra3-Constraint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 3 Constraint
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Part 4 IP Package and Block Design
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            Part 4 IP Package and Block Design
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part4-IP-Package-and-Block-Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part4-IP-Package-and-Block-Design/Part4-1-IP-Package/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 4-1 IP Package
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Part4-IP-Package-and-Block-Design/Part4-2-Block-Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 4-2 Block Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Extra 4 Debugger
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 4 Debugger
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#extra-41-ila-block-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extra 4.1 ILA Block Design
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extra-42-mark-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extra 4.2 Mark Debug
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extra-43-ila-waveform" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extra 4.3 ILA Waveform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extra 4.3 ILA Waveform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capture-mode-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capture Mode Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trigger-mode-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trigger Mode Settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Hardware Software Codesign
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Hardware Software Codesign
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Lab
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Lab
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Lab/Lab1-UART/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 1 UART
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Lab/Lab2-AXI-GPIO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 2 AXI GPIO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Lab/Lab3-AXI-Lite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 3 AXI-Lite
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Lab/Lab4-BRAM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 4 BRAM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Lab/Lab5-DSP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 5 DSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Lab/Lab6-DMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 6 DMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Lab/Lab7-CDMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lab 7 CDMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part1-Zynq-Processor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 1 Zynq Processor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part2-AXI-GPIO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 2 AXI GPIO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Extra1-Vitis-Change-xsa-and-Update-Bitstream/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 1 Vitis Change xsa and Update Bitstream
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part3-AXI-Lite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 3 AXI-Lite
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Extra2-AXI-Mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 2 AXI Mapping
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Extra3-AXI-Protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 3 AXI Protocol
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part4-BRAM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 4 BRAM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part5-DSP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 5 DSP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part6-PYNQ-Jupyter-Notebook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 6 PYNQ Jupyter Notebook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Extra4-ILA-with-PYNQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extra 4 ILA with PYNQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part7-DMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 7 DMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part8-CDMA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 8 CDMA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hardware-Software-Codesign/Part9-HDMI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part 9 HDMI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#extra-41-ila-block-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extra 4.1 ILA Block Design
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extra-42-mark-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extra 4.2 Mark Debug
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extra-43-ila-waveform" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extra 4.3 ILA Waveform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extra 4.3 ILA Waveform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capture-mode-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capture Mode Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trigger-mode-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trigger Mode Settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="extra4-debugger">Extra4-Debugger</h1>
+<p>本章將介紹如何在 Vivado 中使用 <strong>ILA（Integrated Logic Analyzer）</strong> 進行 <strong>FPGA 硬體偵錯</strong>。<br />
+透過 ILA 工具，我們可以在電路實際運行於 FPGA 上時，觀察內部訊號的變化，協助排除模擬階段無法捕捉的問題。  </p>
+<h2 id="extra-41-ila-block-design">Extra 4.1 ILA Block Design</h2>
+<ol>
+<li>
+<p>沿用 <code>Part4-2</code> 的 Block Design，在 Vivado 提供的 IP Catalog 中搜尋 <code>ILA</code>，將其加入設計中。</p>
+<p><img alt="Add_ILA" src="png/Add_ILA.png" /></p>
+</li>
+<li>
+<p>對 <code>ILA</code> 點右鍵選取 <code>Customize</code>後，根據以下步驟設定</p>
+<p><img alt="ILA_Customization" src="png/ILA_Customization.png" />
+<img alt="Probe_Width" src="png/Probe_Width.png" /></p>
+</li>
+<li>
+<p>依照下圖方式對 <code>ILA</code> 做連接，接完線後做一次 <code>Regenerate Layout</code> 和 <code>Validate Design</code> ，以確認沒有錯誤  </p>
+<p><img alt="ILA_Done" src="png/ILA_Done.png" /></p>
+</li>
+<li>
+<p>驗證沒問題後，在左方 Design Sources 內的 block design 項目按右鍵，選擇 <code>Create HDL Wrapper</code>
+然後執行 <code>Synthesis -&gt; Implementation -&gt; Generate Bitstream</code>
+並將 Bitstream file 燒錄進 FPGA</p>
+</li>
+<li>
+<p>可先跳到 <code>Extra 4.3</code> 觀看 <code>ILA Waveform</code>，<code>Extra 4.2 Mark Debug</code> 為另一種設定方法</p>
+</li>
+</ol>
+<h2 id="extra-42-mark-debug">Extra 4.2 Mark Debug</h2>
+<ol>
+<li>
+<p>將 <code>Part4-2</code> 的電路拿去合成後，點選左側 <code>Open Synthesized Design -&gt; Schematic</code>  </p>
+<p><img alt="Schematic" src="png/Schematic.png" /></p>
+</li>
+<li>
+<p>假設我們要觀察 <code>RGB LED 給出的三個 Output</code>、以及 <code>PWM_Decoder 的 sw 訊號</code>，將 Schematic 中 <code>design_1</code> 左上角的 + 點開並找到我們要看的四條訊號線，按住 Ctrl 選擇這四條線使其變成藍色後，在其中一條線上按右鍵，點選 <code>Mark Debug</code></p>
+<p><img alt="Mark_Debug" src="png/Mark_Debug.png" />  </p>
+</li>
+<li>
+<p>點選左側 <code>Open Synthesized Design -&gt; Set Up Debug</code>  </p>
+<p><img alt="Setup_Debug" src="png/Setup_Debug.png" />  </p>
+</li>
+<li>
+<p>在 <code>Clock Domain Undefined</code> 的地方右鍵，選擇 <code>Select Clock Domain</code>  </p>
+<p><img alt="Clock_Undefined" src="png/Clock_Undefined.png" /></p>
+</li>
+<li>
+<p>選擇 <code>clk_IBUF</code></p>
+<p><img alt="Select_Clk" src="png/Select_Clock.png" />  </p>
+<p>完成後如下圖  </p>
+<p><img alt="Debug_Setting_Complete" src="png/Debug_Setting_Complete.png" /></p>
+</li>
+<li>
+<p>設定 <code>Sample Data Width</code>  </p>
+<p><img alt="Setting_Width" src="png/Setting_Width.png" /></p>
+</li>
+<li>
+<p>設定完成後再重新 Synthesize 一次，再打開 Schematic 會發現多了兩個 Debug Blocks  </p>
+<p><img alt="Mark_Debug_Done" src="png/Mark_Debug_Done.png" /></p>
+</li>
+<li>
+<p><code>Implementation -&gt; Generate Bitstream</code>，並燒錄到 FPGA 上</p>
+</li>
+</ol>
+<h2 id="extra-43-ila-waveform">Extra 4.3 ILA Waveform</h2>
+<ol>
+<li>
+<p><code>Extra 4.1</code> 和 <code>Extra 4.2</code> 的電路燒入進去 FPGA 後，<code>Debug Probes</code> 視窗將會開啟，若沒有的話請點選 <code>Window -&gt; Debug Probes</code>  </p>
+<p><img alt="ILA_Waveform" src="png/ILA_Waveform.png" /></p>
+</li>
+<li>
+<p>接著我們要設定 Trigger 條件，假設我們 Trigger 的條件為 sw == 2'b01
+在 Trigger Setup 的視窗點選 + 號將 sw 訊號加入，然後對其做設定<br />
+<img alt="Trigger_Set" src="png/Trigger_Set.png" /></p>
+</li>
+<li>
+<p><strong>此時先把 FPGA 版上的 <code>sw0</code> 和 <code>sw1</code> 都撥到零的位子後</strong>，點選 <code>Run Trigger for this ILA core</code>  </p>
+<p><img alt="Run_Trigger" src="png/Run_Trigger.png" />  </p>
+<p>若你有照上方所說<strong>先把 FPGA 版上的 <code>sw0</code> 和 <code>sw1</code> 都撥到零的位子</strong>，此時會在 <code>Wait for Trigger</code> 的狀態，此時 <code>ILA</code> 會一直紀錄數值直到我們把 <code>sw0</code> 撥到1的位置就會被觸發</p>
+<p><img alt="Wait_ILA" src="png/Wait_ILA.png" /></p>
+<p><code>sw0</code> 撥到1的位子隨即觸發，並在上方波型圖顯示觸發前後的波型  </p>
+<p><img alt="Trigger" src="png/Triggered.png" />  </p>
+</li>
+</ol>
+<h3 id="capture-mode-settings">Capture Mode Settings</h3>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sample of data depth</td>
+<td>在建立 ILA core 時，設定的 Sample of data depth。它會變成 ILA 的硬體參數 <code>C_DATA_DEPTH</code>。</td>
+</tr>
+<tr>
+<td>Window data depth</td>
+<td>在 ILA 實際抓資料時，一次要抓多少筆資料。上限就是 sample of data depth。</td>
+</tr>
+<tr>
+<td>Trigger position in window</td>
+<td>設定「觸發點在這次擷取的哪個位置」，這會決定擷取多少資料是在「觸發點之前」與「觸發點之後」。</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p><code>ILA IP</code> 自訂時可以選擇 <code>Sample Data Width</code>，深度開得越大，使用的 <code>FPGA BRAM</code> 資源就越多， <code>ILA IP</code> 儲存 Capture 的資料主要就是使用 <code>BRAM</code>  </p>
+<p><img alt="Sample_Data_Width" src="png/Sample_Data_Depth.png" /></p>
+</li>
+<li>
+<p><code>ILA</code> 開啟後可以透過調整左下角的 <code>Window data depth</code> 或 <code>Trigger postition in window</code> 來去調整你要紀錄 Trigger 前後多少的資料  </p>
+<p><img alt="Window_Setting" src="png/Windows_Setting.png" /></p>
+</li>
+<li>
+<p>For Example:  </p>
+<p><img alt="Window_Setting_eg" src="png/Windows_Setting_eg.png" />  </p>
+<p><img alt="ILA_eg" src="png/ILA_eg.png" /></p>
+</li>
+</ol>
+<h3 id="trigger-mode-settings">Trigger Mode Settings</h3>
+<ol>
+<li>
+<p>透過 <code>+</code> 號可以增加 Trigger 的條件，可以複數條 Trigger 條件同時存在</p>
+<p><img alt="Multiple_Trigger" src="png/Multiple_Trigger.png" /></p>
+</li>
+<li>
+<p>點選上方 <code>邏輯閘</code> 可以選擇下方的條件要在如何的 Boolean 條件下發生 Trigger
+    <img alt="Trigger_Condition" src="png/Trigger_Condition.png" /></p>
+</li>
+</ol>
+<blockquote>
+<p>📌 Note：  </p>
+<ul>
+<li>若訊號為高速 clock domain，建議先經過 D Flip-Flop 進行觸發延遲再接入 ILA  </li>
+<li>ILA 必須由 <strong>free-running clock</strong> 驅動，確保時脈不會被 gating、reset、或控制邏輯中斷  </li>
+<li>避免使用 gated clock 或條件性 enable 的 clock 作為 ILA 的 clock source  </li>
+<li>若觀察跨 clock domain 訊號，請先將其同步處理後再接入 ILA，以避免 metastability</li>
+</ul>
+<p>📌 Free-running clock：</p>
+<ul>
+<li>不會被設計中的控制訊號（如 enable/reset）中斷的時脈  </li>
+<li>與被觀察訊號在同一個 clock domain 或可被同步跨域  </li>
+</ul>
+<p>Free-running clock Example in PYNQ-Z2 :</p>
+<ul>
+<li>系統主時脈( H16 pin in PYNQ-Z2 ): clk_125MHz  </li>
+<li>Zynq PS 送出的 FCLK_CLK0</li>
+</ul>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.50899def.min.js"></script>
+      
+    
+  </body>
+</html>

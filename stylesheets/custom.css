@@ -1,0 +1,9 @@
+.md-typeset blockquote {
+  background-color: #a5a5a52c;          
+  border-left: 6px solid #3b82f6;      
+  padding: 1em 1.2em;
+  margin: 1.2em 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08); 
+  color: #a2a1a1;                      
+}
