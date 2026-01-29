@@ -20,78 +20,83 @@ AXI VIP 是 Xilinx (AMD) 提供的驗證用 IP Core，支援 AXI3、AXI4 及 AXI
 
 以下解析 tb.sv 的各個段落
 1. 匯入必要 VIP 套件
-```verilog
-import axi_vip_pkg::*;      // 包含 AXI 協定的通用定義
-import axi_vip_0_pkg::*;    // 包含此特定 VIP 實例 (Instance) 的參數定義
-```
+    ```verilog
+    import axi_vip_pkg::*;      // 包含 AXI 協定的通用定義
+    import axi_vip_0_pkg::*;    // 包含此特定 VIP 實例 (Instance) 的參數定義
+    ```
 2. 共用的 clock, reset 訊號
-```verilog
-// clock & reset
-logic ACLK;
-logic ARESETn;
-
-initial begin
-ACLK = 0;
-forever #5 ACLK = ~ACLK;   // 100 MHz
-end
-
-initial begin
-ARESETn = 0;
-repeat (20) @(posedge ACLK);
-ARESETn = 1;
-end
-```
+    ```verilog
+    // clock & reset
+    logic ACLK;
+    logic ARESETn;
+    
+    initial begin
+    ACLK = 0;
+    forever #5 ACLK = ~ACLK;   // 100 MHz
+    end
+    
+    initial begin
+    ARESETn = 0;
+    repeat (20) @(posedge ACLK);
+    ARESETn = 1;
+    end
+    ```
 
 3. 訊號宣告與模組連接
-```verilog
-// AXI signals
-...
-// DUT: Custom AXI Master
-master dut (
+    ```verilog
+    // AXI signals
     ...
-);
-// AXI VIP (Slave)
-axi_vip_0 u_axi_vip (
-    ...
-);
-```
+    // DUT: Custom AXI Master
+    master dut (
+        ...
+    );
+    // AXI VIP (Slave)
+    axi_vip_0 u_axi_vip (
+        ...
+    );
+    ```
 
 4. 宣告 Slave Agent 物件 (型別定義來自 axi_vip_0_pkg)
-```verilog
-axi_vip_0_slv_mem_t slv_agent;
-```
+    ```verilog
+    axi_vip_0_slv_mem_t slv_agent;
+    ```
 5. 啟用 AXI VIP
-```verilog
-initial begin 
-    // 等待 Reset 釋放
-    wait (ARESETn === 1'b1);
-    repeat (20) @(posedge ACLK);
-
-    // 建構 Agent 並綁定硬體
-    // 綁定軟體物件 (slv_agent) 與硬體實例 (u_axi_vip.inst.IF)
-    slv_agent = new("slv_agent", u_axi_vip.inst.IF);
-
-    // 啟動 Slave 模式
-    // 呼叫此函數後，VIP 會開始監聽 AXI Bus，並自動對合法的讀寫請求做出回應
-    slv_agent.start_slave();
-
-    $display("[TB] AXI VIP slave started");
-end
-```
-- 透過這幾行 SystemVerilog code，就能獲得了一個功能完整、符合 AXI 協定且帶有錯誤檢查功能的 Memory Model，大幅省去手寫 Testbench 的時間
+    ```verilog
+    initial begin 
+        // 等待 Reset 釋放
+        wait (ARESETn === 1'b1);
+        repeat (20) @(posedge ACLK);
+    
+        // 建構 Agent 並綁定硬體
+        // 綁定軟體物件 (slv_agent) 與硬體實例 (u_axi_vip.inst.IF)
+        slv_agent = new("slv_agent", u_axi_vip.inst.IF);
+    
+        // 啟動 Slave 模式
+        // 呼叫此函數後，VIP 會開始監聽 AXI Bus，並自動對合法的讀寫請求做出回應
+        slv_agent.start_slave();
+    
+        $display("[TB] AXI VIP slave started");
+    end
+    ```
+    - 透過這幾行 SystemVerilog code，就能獲得了一個功能完整、符合 AXI 協定且帶有錯誤檢查功能的 Memory Model，大幅省去手寫 Testbench 的時間
 
 
 ## Demo
 1. Create a new vivado project
 2. 從 IP Catalog 加入 AXI VIP
 3. 設定 AXI VIP
+   
     ![vip setting](png/vip_setting.png)
+   
 4. Add design source，`src/master_v*.v`
 5. Add simulation source，`src/tb.sv`
+     
     ![hierarchy](png/hierarchy.png)
+   
 6. Run simulation
 7. Check the waveform (or console)  
-    以 v6 為例  
+    - 以 v6 為例
+   
     ![full outstanding](png/read_outstanding.png)
 
 
