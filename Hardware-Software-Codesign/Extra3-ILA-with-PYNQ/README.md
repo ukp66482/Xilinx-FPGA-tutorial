@@ -1,4 +1,4 @@
-# Extra4-ILA-with-PYNQ
+# Extra3-ILA-with-PYNQ
 
 先前在 [Vivado-Tutorial/Extra4-Debugger](../../Vivado-Tutorial/Extra4-Debugger/) 當中已經有教過 Debugger 如何使用，若還沒看過可先回去複習，在本章節中，我們將說明如何在 PYNQ 端執行程式時，即時觀測 PL（Programmable Logic）端的訊號，便於除錯與驗證硬體設計。
 
